@@ -1,0 +1,23 @@
+Neon Dragon - Windows Cursor Pack
+=================================
+
+HOW TO INSTALL (takes about 1 minute):
+
+  1. Unzip this folder anywhere (for example your Desktop).
+
+  2. Right-click the file "install.inf" and choose "Install".
+     (On Windows 11, click "Show more options" first if you
+     don't see Install.)
+
+  3. Open Windows cursor settings:
+     Settings > Bluetooth & devices > Mouse >
+     "Additional mouse settings" > "Pointers" tab.
+
+  4. In the "Scheme" dropdown pick "Neon Dragon",
+     then click "Apply". Done - enjoy your new cursors!
+
+NOTE: Installing does not change your cursor automatically -
+step 3 and 4 are needed to actually switch to the new scheme.
+
+TO GO BACK: open the same Pointers tab and pick
+"Windows Default" in the Scheme dropdown, then Apply.

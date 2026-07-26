@@ -3,298 +3,1035 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile</title>
-
+    <title>Nameera Shahid — Software Engineer & AI Enthusiast</title>
+    <meta name="description" content="Portfolio of Nameera Shahid — Software Engineering Student, Python Developer, AI Enthusiast">
+    <meta name="keywords" content="Nameera Shahid, portfolio, software engineer, Python, AI, web developer">
+    <meta property="og:title" content="Nameera Shahid — Portfolio">
+    <meta property="og:description" content="Software Engineering Student & AI Enthusiast">
+    <meta property="og:image" content="images/profile.jpg.jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-
+    <link rel="preload" href="images/profile.jpg.jpeg" as="image">
+    <link rel="preconnect" href="https://dummyjson.com">
+    <meta name="application-name" content="Nameera Shahid Portfolio">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Nameera.dev">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="msapplication-TileColor" content="#060b18">
+    <meta name="notranslate" content="true">
 </head>
 <body>
-    <header>
 
-        <nav>
+    <!-- ===== META ADDITIONS ===== -->
+    <meta name="author" content="Nameera Shahid">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#060b18">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://my-portfolio-mu-nine-23.vercel.app/">
+    <meta property="og:site_name" content="Nameera Shahid Portfolio">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Nameera Shahid — Portfolio">
+    <meta name="twitter:description" content="Software Engineering Student & AI Enthusiast">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='28' font-size='28'%3E🚀%3C/text%3E%3C/svg%3E" type="image/svg+xml">
 
-            <h1 class="logo">Nameera Shahid.</h1>
+    <!-- ===== STRUCTURED DATA ===== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Nameera Shahid",
+        "givenName": "Nameera",
+        "familyName": "Shahid",
+        "jobTitle": "Software Engineering Student",
+        "email": "parishahid5@gmail.com",
+        "url": "https://my-portfolio-mu-nine-23.vercel.app/",
+        "sameAs": [
+            "https://github.com/Nameera19",
+            "https://www.linkedin.com/in/nameera-s-a7049b356/"
+        ],
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Sialkot",
+            "addressCountry": "PK"
+        },
+        "knowsAbout": [
+            "Python",
+            "JavaScript",
+            "HTML",
+            "CSS",
+            "C++",
+            "Git",
+            "Software Engineering"
+        ],
+        "alumniOf": [
+            {
+                "@type": "CollegeOrUniversity",
+                "name": "Virtual University of Pakistan"
+            },
+            {
+                "@type": "CollegeOrUniversity",
+                "name": "GC Women University Sialkot"
+            }
+        ]
+    }
+    </script>
 
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#certificates">Certificates</a></li>
+    <!-- ===== LOADING SCREEN ===== -->
+    <div id="loader">
+        <div class="loader-container">
+            <div class="loader-ring"></div>
+            <div class="loader-ring loader-ring-2"></div>
+            <div class="loader-ring loader-ring-3"></div>
+            <div class="loader-text">Loading<span class="loader-dots">...</span></div>
+        </div>
+    </div>
+
+    <!-- ===== PARTICLE CANVAS OVERLAY ===== -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- ===== MOISTURE CANVAS OVERLAY ===== -->
+    <canvas id="moistureCanvas"></canvas>
+
+    <!-- ===== CUSTOM CURSOR ===== -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+
+    <!-- ===== SCROLL PROGRESS BAR ===== -->
+    <div id="scrollProgress"></div>
+
+    <!-- ===== NAVIGATION ===== -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <span class="logo-bracket">&lt;</span>
+                <span class="logo-name">Nameera</span>
+                <span class="logo-bracket">/&gt;</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about" class="nav-link active-link">About</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#education" class="nav-link">Education</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#certificates" class="nav-link">Certificates</a></li>
+                <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+                <li><a href="#blog" class="nav-link">Blog</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
-                <button id="darkModeBtn">🌙</button>
-        </nav>
-
-    <section class="hero">
-
-    <div class="hero-image">
-        <img src="images/profile.jpg.jpeg" alt="Profile Picture">
-    </div>
-
-    <div class="hero-content">
-        <h2>Hi, I'm Nameera</h2>
-        <h1>Software Engineering Student</h1>
-        <p>Python Developer • AI Enthusiast • Future Full-Stack Developer</p>
-
-        <a href="#projects" class="btn">View Projects</a>
-        <a href="#contact" class="btn">Contact Me</a>
-    </div>
-
-</section>
-
-    </header>
-
-    <main>
-
-    <section id="about" class="about">
-
-        <h2>About Me</h2>
-
-        <p>
-            Hello! I'm Nameera, a Software Engineering student with a passion
-            for Python programming, web development, and artificial intelligence.
-            I enjoy learning new technologies and building projects that help me
-            grow as a developer.
-        </p>
-
-    </section>
-    <section id="skills" class="skills">
-
-    <h2>My Skills</h2>
-
-    <div class="skills-container">
-
-        <div class="skill-card">
-            <h3>Python</h3>
-        </div>
-
-        <div class="skill-card">
-            <h3>HTML</h3>
-        </div>
-
-        <div class="skill-card">
-            <h3>CSS</h3>
-        </div>
-
-        <div class="skill-card">
-            <h3>JavaScript</h3>
-        </div>
-
-        <div class="skill-card">
-            <h3>Git & GitHub</h3>
-        </div>
-
-        <div class="skill-card">
-            <h3>C++</h3>
-        </div>
-
-        <div class="skill-card canva">
-        <h3>Canva</h3>
-        </div>
-
-    </div>
-
-    </section>
-    <section id="education" class="education">
-
-    <h2>Education</h2>
-
-    <div class="education-container">
-
-        <div class="education-card">
-
-            <h3>Bachelor of Software Engineering</h3>
-
-            <h4>Virtual University of Pakistan</h4>
-
-            <p>2025 - Present</p>
-
-            <p>
-                Currently pursuing a Bachelor's degree in Software Engineering,
-                focusing on programming, web development, cloud computing,
-                and artificial intelligence.
-            </p>
-
-        </div>
-
-    </div>
-
-    <div class="education-container">
-
-        <div class="education-card">
-
-            <h3>Intermediate</h3>
-
-            <h4>GC Women University Sialkot</h4>
-
-            <p>2023 - 2025 </p>
-
-            <p>
-                ICS- Studied Computer Basics, web and logical problem-solving
-            </p>
-
-        </div>
-
-    </div>
-
-    </section>
-
-    <section id="projects" class="projects">
-
-    <h2>My Projects</h2>
-
-    <div class="projects-container">
-
-        <div class="project-card">
-            <h3>Student Management System</h3>
-            <p><strong>Technology:</strong> Python</p>
-            <p>
-                A console-based application to manage student records using file handling.
-            </p>
-            <button>View Project</button>
-        </div>
-
-        <div class="project-card">
-            <h3>Cryptocurrency Price Tracker</h3>
-            <p><strong>Technology:</strong> Python, API</p>
-            <p>
-                Retrieves real-time cryptocurrency prices using a public API.
-            </p>
-            <button>View Project</button>
-        </div>
-
-        <div class="project-card">
-            <h3>Personal Portfolio Website</h3>
-            <p><strong>Technology:</strong> HTML, CSS, JavaScript</p>
-            <p>
-                A responsive personal portfolio showcasing my skills, education, and projects.
-            </p>
-            <a href="https://my-portfolio-mu-nine-23.vercel.app/" target="_blank" class="btn">
-            View Project
-            </a>
+            <div class="nav-actions">
+                <button id="darkModeBtn" class="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button id="hamburgerBtn" class="hamburger" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
             </div>
+        </div>
+    </nav>
 
-        <div class="project-card">
-            <h3>Task Manager</h3>
-            <p><strong>Technology:</strong> Python</p>
-            <p>
-             Developed a Task Manager application that enables users to create, update,
-             delete, and organize daily tasks efficiently
-            </p>
-
-            <a href="https://task-manager-owe8.onrender.com" target="_blank" class="btn">
-            View Project
-            </a>
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero" id="home">
+        <div class="hero-bg-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+            <div class="shape shape-5"></div>
+        </div>
+        <div class="hero-container">
+            <div class="hero-content reveal-left">
+                <div class="hero-greeting">
+                    <span class="greeting-line"></span>
+                    <span class="greeting-text">Hello, I'm</span>
+                </div>
+                <h1 class="hero-title">
+                    <span class="title-line">Nameera</span>
+                    <span class="title-line title-highlight">Shahid</span>
+                </h1>
+                <div class="hero-typing">
+                    <span class="typing-label">I'm a </span>
+                    <span id="typedText" class="typed-text"></span>
+                    <span class="typing-cursor">|</span>
+                </div>
+                <p class="hero-description">
+                    Software Engineering Student passionate about Python, Artificial Intelligence, 
+                    and building elegant solutions that make a difference. Turning complex problems 
+                    into simple, beautiful, and intuitive code.
+                </p>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="stat-number" data-target="10">0</span>
+                        <span class="stat-plus">+</span>
+                        <span class="stat-label">Projects</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-number" data-target="6">0</span>
+                        <span class="stat-plus">+</span>
+                        <span class="stat-label">Skills</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-number" data-target="2">0</span>
+                        <span class="stat-plus">+</span>
+                        <span class="stat-label">Certifications</span>
+                    </div>
+                </div>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary glow-btn">
+                        <i class="fas fa-rocket"></i> View Projects
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        <i class="fas fa-envelope"></i> Contact Me
+                    </a>
+                    <a href="https://github.com/Nameera19" target="_blank" class="btn btn-icon" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/nameera-s-a7049b356/" target="_blank" class="btn btn-icon" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
             </div>
-
+            <div class="hero-image-wrapper reveal-right">
+                <div class="hero-image-ring"></div>
+                <div class="hero-image-ring-2"></div>
+                <div class="hero-image">
+                    <img src="images/profile.jpg.jpeg" alt="Nameera Shahid" loading="lazy">
+                    <div class="hero-image-badge">
+                        <i class="fas fa-code"></i>
+                    </div>
+                </div>
+                <div class="hero-floating-cards">
+                    <div class="floating-card fc-1">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <div class="floating-card fc-2">
+                        <i class="fab fa-js"></i>
+                    </div>
+                    <div class="floating-card fc-3">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                </div>
             </div>
-
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll Down</span>
+            <div class="scroll-mouse">
+                <div class="scroll-wheel"></div>
+            </div>
+        </div>
     </section>
 
-    <section id="certificates" class="certificates">
+    <!-- ===== ABOUT SECTION ===== -->
+    <section id="about" class="about section">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <span class="section-number">01</span>
+                <h2 class="section-title">About Me</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="about-content">
+                <div class="about-image reveal-left">
+                    <div class="about-image-frame">
+                        <img src="images/profile.jpg.jpeg" alt="About Nameera" loading="lazy">
+                        <div class="about-image-border"></div>
+                    </div>
+                    <div class="about-experience">
+                        <span class="exp-number">2025</span>
+                        <span class="exp-text">Started BSSE</span>
+                    </div>
+                </div>
+                <div class="about-text reveal-right">
+                    <p class="about-paragraph">
+                        Hello! I'm <strong>Nameera</strong>, a passionate Software Engineering student at 
+                        <strong>Virtual University of Pakistan</strong> with a deep love for Python programming, 
+                        web development, and artificial intelligence.
+                    </p>
+                    <p class="about-paragraph">
+                        My journey into tech started with curiosity — how do websites work? How do apps 
+                        think? That curiosity turned into countless hours of coding, building, debugging, 
+                        and learning. Today, I specialize in Python development, have built full-stack 
+                        web projects, and am diving deep into AI/ML.
+                    </p>
+                    <p class="about-paragraph">
+                        When I'm not coding, you'll find me exploring new technologies, contributing to 
+                        open-source, writing technical blog posts, or designing UI mockups. I believe in 
+                        lifelong learning and the power of technology to transform lives.
+                    </p>
+                    <div class="about-info-grid">
+                        <div class="about-info-item">
+                            <span class="info-key">Name</span>
+                            <span class="info-value">Nameera Shahid</span>
+                        </div>
+                        <div class="about-info-item">
+                            <span class="info-key">Email</span>
+                            <span class="info-value">parishahid5@gmail.com</span>
+                        </div>
+                        <div class="about-info-item">
+                            <span class="info-key">Location</span>
+                            <span class="info-value">Sialkot, Pakistan</span>
+                        </div>
+                        <div class="about-info-item">
+                            <span class="info-key">Freelance</span>
+                            <span class="info-value available">Available</span>
+                        </div>
+                    </div>
+                    <div class="about-tags">
+                        <span class="tag">Python Developer</span>
+                        <span class="tag">AI Enthusiast</span>
+                        <span class="tag">Full-Stack (Future)</span>
+                        <span class="tag">Open Source</span>
+                        <span class="tag">Problem Solver</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <h2>Certificates</h2>
-
-    <div class="certificate-container">
-
-        <div class="certificate-card">
-            <h3>C++ Essentials</h3>
-            <h4>Cisco Networking Academy</h4>
-            <p><strong>Completed:</strong> June 2026</p>
-            <p>
-                Successfully completed the C++ Essentials course, gaining knowledge
-                of object-oriented programming, functions, arrays, classes, and
-                problem-solving techniques.
+    <!-- ===== SKILLS SECTION ===== -->
+    <section id="skills" class="skills section">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <span class="section-number">02</span>
+                <h2 class="section-title">My Skills</h2>
+                <div class="section-line"></div>
+            </div>
+            <p class="section-description reveal">
+                Technologies and tools I've worked with and continue to master
+                on my journey as a software engineer.
             </p>
+            <div class="skills-container">
+                <div class="skill-card reveal" data-delay="0">
+                    <div class="skill-icon">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <h3>Python</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="85"></div>
+                    </div>
+                    <div class="skill-percent">85%</div>
+                    <p>Console apps, APIs, file handling, automation scripts</p>
+                    <div class="skill-tags">
+                        <span>FastAPI</span>
+                        <span>Requests</span>
+                        <span>JSON</span>
+                    </div>
+                </div>
+                <div class="skill-card reveal" data-delay="100">
+                    <div class="skill-icon">
+                        <i class="fab fa-html5"></i>
+                    </div>
+                    <h3>HTML</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="90"></div>
+                    </div>
+                    <div class="skill-percent">90%</div>
+                    <p>Semantic markup, accessibility, SEO-friendly structure</p>
+                    <div class="skill-tags">
+                        <span>HTML5</span>
+                        <span>Semantic</span>
+                        <span>ARIA</span>
+                    </div>
+                </div>
+                <div class="skill-card reveal" data-delay="200">
+                    <div class="skill-icon">
+                        <i class="fab fa-css3-alt"></i>
+                    </div>
+                    <h3>CSS</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="80"></div>
+                    </div>
+                    <div class="skill-percent">80%</div>
+                    <p>Responsive design, animations, flexbox, grid, transitions</p>
+                    <div class="skill-tags">
+                        <span>CSS3</span>
+                        <span>Flexbox</span>
+                        <span>Grid</span>
+                        <span>Animation</span>
+                    </div>
+                </div>
+                <div class="skill-card reveal" data-delay="300">
+                    <div class="skill-icon">
+                        <i class="fab fa-js"></i>
+                    </div>
+                    <h3>JavaScript</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="70"></div>
+                    </div>
+                    <div class="skill-percent">70%</div>
+                    <p>DOM manipulation, ES6+, async/await, fetch API</p>
+                    <div class="skill-tags">
+                        <span>ES6+</span>
+                        <span>DOM</span>
+                        <span>Fetch</span>
+                    </div>
+                </div>
+                <div class="skill-card reveal" data-delay="400">
+                    <div class="skill-icon">
+                        <i class="fab fa-git-alt"></i>
+                    </div>
+                    <h3>Git & GitHub</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="75"></div>
+                    </div>
+                    <div class="skill-percent">75%</div>
+                    <p>Version control, branching, collaboration, open source</p>
+                    <div class="skill-tags">
+                        <span>Git</span>
+                        <span>GitHub</span>
+                        <span>CLI</span>
+                    </div>
+                </div>
+                <div class="skill-card reveal" data-delay="500">
+                    <div class="skill-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>C++</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="65"></div>
+                    </div>
+                    <div class="skill-percent">65%</div>
+                    <p>OOP, data structures, problem-solving, algorithms</p>
+                    <div class="skill-tags">
+                        <span>OOP</span>
+                        <span>DSA</span>
+                        <span>STL</span>
+                    </div>
+                </div>
+                <div class="skill-card reveal" data-delay="600">
+                    <div class="skill-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>Canva</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="80"></div>
+                    </div>
+                    <div class="skill-percent">80%</div>
+                    <p>UI mockups, social media graphics, presentation design</p>
+                    <div class="skill-tags">
+                        <span>Design</span>
+                        <span>UI/UX</span>
+                    </div>
+                </div>
+                <div class="skill-card reveal" data-delay="700">
+                    <div class="skill-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3>AWS (In Progress)</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="40"></div>
+                    </div>
+                    <div class="skill-percent">40%</div>
+                    <p>Cloud computing, EC2, S3, solutions architecture</p>
+                    <div class="skill-tags">
+                        <span>AWS</span>
+                        <span>Cloud</span>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="certificate-card">
-            <h3>AWS Certified Solutions Architect – Associate</h3>
-            <h4>Amazon Web Services (AWS)</h4>
-            <p><strong>Status:</strong> In Progress</p>
-            <p>
-                Currently preparing for the AWS Certified Solutions Architect –
-                Associate certification, focusing on cloud computing, networking,
-                security, storage, and AWS architecture best practices.
+    <!-- ===== EDUCATION SECTION ===== -->
+    <section id="education" class="education section">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <span class="section-number">03</span>
+                <h2 class="section-title">Education</h2>
+                <div class="section-line"></div>
+            </div>
+            <p class="section-description reveal">
+                My academic journey — building a strong foundation in software engineering 
+                and computer science.
             </p>
+            <div class="timeline">
+                <div class="timeline-item reveal" data-delay="0">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">
+                        <span class="date-badge">2025 — Present</span>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h3>Bachelor of Software Engineering</h3>
+                        <h4>Virtual University of Pakistan</h4>
+                        <div class="timeline-details">
+                            <span><i class="fas fa-star"></i> Current CGPA: 3.5+</span>
+                            <span><i class="fas fa-book"></i> Focus: Programming, Web Dev, Cloud, AI</span>
+                        </div>
+                        <p>
+                            Pursuing a comprehensive degree covering software architecture, 
+                            data structures, algorithms, database systems, and artificial intelligence. 
+                            Actively working on projects to apply theoretical knowledge.
+                        </p>
+                        <div class="timeline-courses">
+                            <span>Data Structures</span>
+                            <span>OOP</span>
+                            <span>Database Systems</span>
+                            <span>Web Dev</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item reveal" data-delay="200">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">
+                        <span class="date-badge">2023 — 2025</span>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-icon"><i class="fas fa-school"></i></div>
+                        <h3>Intermediate (ICS)</h3>
+                        <h4>GC Women University Sialkot</h4>
+                        <div class="timeline-details">
+                            <span><i class="fas fa-star"></i> Grade: A</span>
+                            <span><i class="fas fa-laptop-code"></i> Focus: Computer Science</span>
+                        </div>
+                        <p>
+                            Completed Intermediate in Computer Science (ICS) with a focus on 
+                            programming fundamentals, web technologies, and logical problem-solving. 
+                            Built the foundational knowledge that sparked my passion for software.
+                        </p>
+                        <div class="timeline-courses">
+                            <span>Programming</span>
+                            <span>Computer Basics</span>
+                            <span>Web</span>
+                            <span>Math</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-    </div>
-    <section id="quote">
-
-    <h2>Daily Motivation</h2>
-
-    <p id="quoteText">
-        Click the button to get an inspirational quote.
-    </p>
-
-    <button id="quoteBtn">Inspire Me</button>
-
-   </section>
     </section>
 
-    <section id="contact" class="contact">
-
-    <h2>Contact Me</h2>
-
-    <p class="contact-text">
-        Feel free to get in touch with me for collaborations,
-        internships, or project opportunities.
-    </p>
-
-    <div class="contact-container">
-
-        <div class="contact-card">
-            <h3>📧 Email</h3>
-            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=parishahid5@gmail.com" target="_blank">
-             parishahid5@gmail.com
-        </a>
+    <!-- ===== PROJECTS SECTION ===== -->
+    <section id="projects" class="projects section">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <span class="section-number">04</span>
+                <h2 class="section-title">My Projects</h2>
+                <div class="section-line"></div>
+            </div>
+            <p class="section-description reveal">
+                A collection of projects that showcase my skills, creativity, and 
+                dedication to building real-world solutions.
+            </p>
+            <div class="project-filters reveal">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="python">Python</button>
+                <button class="filter-btn" data-filter="web">Web</button>
+                <button class="filter-btn" data-filter="api">API</button>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card reveal" data-category="python" data-delay="0">
+                    <div class="project-card-top">
+                        <span class="project-category">Python</span>
+                        <div class="project-links">
+                            <a href="#" class="project-link" title="View Code"><i class="fab fa-github"></i></a>
+                            <a href="#" class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <div class="project-icon"><i class="fas fa-users-cog"></i></div>
+                    <h3>Student Management System</h3>
+                    <p>
+                        A console-based application to manage student records using file handling. 
+                        Features include add, update, delete, search, and display student data with 
+                        persistent storage.
+                    </p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>File I/O</span>
+                        <span>CLI</span>
+                    </div>
+                    <button class="project-detail-btn">View Details <i class="fas fa-arrow-right"></i></button>
+                </div>
+                <div class="project-card reveal" data-category="api" data-delay="100">
+                    <div class="project-card-top">
+                        <span class="project-category">API</span>
+                        <div class="project-links">
+                            <a href="#" class="project-link" title="View Code"><i class="fab fa-github"></i></a>
+                            <a href="#" class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <div class="project-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Cryptocurrency Price Tracker</h3>
+                    <p>
+                        Retrieves real-time cryptocurrency prices using a public API. Displays 
+                        prices, percentage changes, and market trends for popular cryptos with 
+                        a clean interface.
+                    </p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>REST API</span>
+                        <span>JSON</span>
+                    </div>
+                    <button class="project-detail-btn">View Details <i class="fas fa-arrow-right"></i></button>
+                </div>
+                <div class="project-card reveal" data-category="web" data-delay="200">
+                    <div class="project-card-top">
+                        <span class="project-category">Web</span>
+                        <div class="project-links">
+                            <a href="https://github.com/Nameera19" class="project-link" title="View Code"><i class="fab fa-github"></i></a>
+                            <a href="https://my-portfolio-mu-nine-23.vercel.app/" class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <div class="project-icon"><i class="fas fa-globe"></i></div>
+                    <h3>Personal Portfolio Website</h3>
+                    <p>
+                        A fully responsive personal portfolio showcasing skills, education, 
+                        projects, and certificates with dark/light mode toggle and daily motivation 
+                        quotes powered by Fetch API.
+                    </p>
+                    <div class="project-tech">
+                        <span>HTML5</span>
+                        <span>CSS3</span>
+                        <span>JavaScript</span>
+                    </div>
+                    <a href="https://my-portfolio-mu-nine-23.vercel.app/" target="_blank" class="project-detail-btn">Live Demo <i class="fas fa-external-link-alt"></i></a>
+                </div>
+                <div class="project-card reveal" data-category="python" data-delay="300">
+                    <div class="project-card-top">
+                        <span class="project-category">Python</span>
+                        <div class="project-links">
+                            <a href="https://github.com/Nameera19" class="project-link" title="View Code"><i class="fab fa-github"></i></a>
+                            <a href="https://task-manager-owe8.onrender.com" class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <div class="project-icon"><i class="fas fa-tasks"></i></div>
+                    <h3>Task Manager</h3>
+                    <p>
+                        A full-featured task manager that enables users to create, update, delete, 
+                        and organize daily tasks efficiently with a clean UI and persistent storage.
+                    </p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>Flask</span>
+                        <span>Render</span>
+                    </div>
+                    <a href="https://task-manager-owe8.onrender.com" target="_blank" class="project-detail-btn">Live Demo <i class="fas fa-external-link-alt"></i></a>
+                </div>
+                <div class="project-card reveal" data-category="web" data-delay="400">
+                    <div class="project-card-top">
+                        <span class="project-category">Web</span>
+                        <div class="project-links">
+                            <a href="#" class="project-link" title="View Code"><i class="fab fa-github"></i></a>
+                            <a href="#" class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <div class="project-icon"><i class="fas fa-robot"></i></div>
+                    <h3>AI Chat Interface</h3>
+                    <p>
+                        A web-based AI chat interface with real-time message handling, 
+                        markdown rendering, and conversation history. Built with modern 
+                        JavaScript and responsive design.
+                    </p>
+                    <div class="project-tech">
+                        <span>JavaScript</span>
+                        <span>HTML/CSS</span>
+                        <span>API</span>
+                    </div>
+                    <button class="project-detail-btn">View Details <i class="fas fa-arrow-right"></i></button>
+                </div>
+                <div class="project-card reveal" data-category="python" data-delay="500">
+                    <div class="project-card-top">
+                        <span class="project-category">Python</span>
+                        <div class="project-links">
+                            <a href="#" class="project-link" title="View Code"><i class="fab fa-github"></i></a>
+                            <a href="#" class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <div class="project-icon"><i class="fas fa-database"></i></div>
+                    <h3>Data Analysis Tool</h3>
+                    <p>
+                        A Python-based data analysis toolkit that reads CSV/Excel files, 
+                        performs statistical analysis, generates visualizations, and exports 
+                        reports in PDF format.
+                    </p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>Pandas</span>
+                        <span>Matplotlib</span>
+                    </div>
+                    <button class="project-detail-btn">View Details <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
         </div>
-
-        <div class="contact-card">
-            <h3>📱 Phone</h3>
-            <a href="https://wa.me/923239258647" target="_blank">
-            +92 323 9258647
-        </a>
-        </div>
-
-        <div class="contact-card">
-            <h3>📍 Location</h3>
-            <p>Sialkot, Pakistan</p>
-        </div>
-
-        <div class="contact-card">
-            <h3>💻 GitHub</h3>
-            <a href="https://github.com/Nameera19" target="_blank">
-            github.com/Nameera19
-</a>
-        </div>
-
-    </div>
-    <div class="linkedin-container">
-
-    <div class="contact-card">
-        <h3>💼 LinkedIn</h3>
-        <a href="https://www.linkedin.com/in/nameera-s-a7049b356/" target="_blank">
-          linkedin.com/in/nameera-s-a7049b356
-        </a>
-    </div>
-
-    </div>
-
     </section>
 
+    <!-- ===== CERTIFICATES SECTION ===== -->
+    <section id="certificates" class="certificates section">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <span class="section-number">05</span>
+                <h2 class="section-title">Certificates</h2>
+                <div class="section-line"></div>
+            </div>
+            <p class="section-description reveal">
+                Professional certifications that validate my skills and knowledge 
+                in various domains of technology.
+            </p>
+            <div class="certificates-grid">
+                <div class="certificate-card reveal" data-delay="0">
+                    <div class="certificate-ribbon">Completed</div>
+                    <div class="certificate-icon"><i class="fas fa-certificate"></i></div>
+                    <h3>C++ Essentials</h3>
+                    <h4>Cisco Networking Academy</h4>
+                    <div class="certificate-meta">
+                        <span><i class="fas fa-calendar"></i> June 2026</span>
+                    </div>
+                    <p>
+                        Successfully completed the C++ Essentials course, gaining comprehensive 
+                        knowledge of object-oriented programming, functions, arrays, classes, 
+                        inheritance, polymorphism, and problem-solving techniques.
+                    </p>
+                    <ul class="certificate-topics">
+                        <li>OOP Concepts</li>
+                        <li>Functions & Arrays</li>
+                        <li>Classes & Objects</li>
+                        <li>Problem Solving</li>
+                    </ul>
+                    <a href="#" class="certificate-btn"><i class="fas fa-download"></i> View Certificate</a>
+                </div>
+                <div class="certificate-card reveal in-progress" data-delay="200">
+                    <div class="certificate-ribbon in-progress-ribbon">In Progress</div>
+                    <div class="certificate-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <h3>AWS Certified Solutions Architect</h3>
+                    <h4>Amazon Web Services (AWS)</h4>
+                    <div class="certificate-meta">
+                        <span><i class="fas fa-spinner fa-spin"></i> In Progress</span>
+                    </div>
+                    <p>
+                        Currently preparing for the AWS Certified Solutions Architect – Associate 
+                        certification, focusing on cloud computing, networking, security, storage, 
+                        databases, and AWS architecture best practices.
+                    </p>
+                    <ul class="certificate-topics">
+                        <li>Cloud Computing</li>
+                        <li>AWS EC2 / S3</li>
+                        <li>Security</li>
+                        <li>Architecture</li>
+                    </ul>
+                    <div class="certificate-progress-bar">
+                        <div class="certificate-progress-fill" style="width: 40%;"></div>
+                        <span>40% Complete</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIALS SECTION ===== -->
+    <section id="testimonials" class="testimonials section">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <span class="section-number">06</span>
+                <h2 class="section-title">Testimonials</h2>
+                <div class="section-line"></div>
+            </div>
+            <p class="section-description reveal">
+                What people say about working with me.
+            </p>
+            <div class="testimonials-carousel reveal">
+                <div class="testimonial-track" id="testimonialTrack">
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">
+                            "Nameera is a dedicated and passionate developer. Her problem-solving skills 
+                            and attention to detail make her stand out. She consistently delivers 
+                            high-quality work."
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div class="testimonial-info">
+                                <h4>Project Mentor</h4>
+                                <span>Virtual University</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">
+                            "Working with Nameera on the Task Manager project was great. She has a 
+                            strong grasp of Python and always brings creative ideas to the table. 
+                            Highly recommend her."
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <div class="testimonial-info">
+                                <h4>Peer Collaborator</h4>
+                                <span>GC Women University</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p class="testimonial-text">
+                            "Nameera's enthusiasm for AI and technology is inspiring. She's always 
+                            eager to learn and takes initiative on challenging problems. A rising 
+                            star in the making."
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                            <div class="testimonial-info">
+                                <h4>Course Instructor</h4>
+                                <span>Virtual University</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-controls">
+                    <button id="testPrev" class="testimonial-btn"><i class="fas fa-chevron-left"></i></button>
+                    <div class="testimonial-dots">
+                        <span class="testimonial-dot active"></span>
+                        <span class="testimonial-dot"></span>
+                        <span class="testimonial-dot"></span>
+                    </div>
+                    <button id="testNext" class="testimonial-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== BLOG / INSIGHTS SECTION ===== -->
+    <section id="blog" class="blog section">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <span class="section-number">07</span>
+                <h2 class="section-title">Insights & Blog</h2>
+                <div class="section-line"></div>
+            </div>
+            <p class="section-description reveal">
+                Thoughts, tutorials, and insights from my learning journey.
+            </p>
+            <div class="blog-grid">
+                <article class="blog-card reveal" data-delay="0">
+                    <div class="blog-image">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-date"><i class="far fa-calendar-alt"></i> July 2026</span>
+                        <h3>Getting Started with Python: A Beginner's Guide</h3>
+                        <p>
+                            Python is one of the most beginner-friendly programming languages. 
+                            In this post, I share my journey and tips for starting with Python.
+                        </p>
+                        <a href="#" class="blog-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                <article class="blog-card reveal" data-delay="100">
+                    <div class="blog-image">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-date"><i class="far fa-calendar-alt"></i> June 2026</span>
+                        <h3>Cloud Computing 101: Why Every Developer Should Learn AWS</h3>
+                        <p>
+                            Cloud computing is transforming the tech industry. Here's why I decided 
+                            to pursue AWS certification and what I've learned so far.
+                        </p>
+                        <a href="#" class="blog-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                <article class="blog-card reveal" data-delay="200">
+                    <div class="blog-image">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-date"><i class="far fa-calendar-alt"></i> May 2026</span>
+                        <h3>5 Projects Every Beginner Python Developer Should Build</h3>
+                        <p>
+                            The best way to learn programming is by building. Here are 5 projects 
+                            that helped me level up my Python skills.
+                        </p>
+                        <a href="#" class="blog-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== DAILY MOTIVATION SECTION ===== -->
+    <section id="quote" class="quote section">
+        <div class="section-container">
+            <div class="quote-card reveal">
+                <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+                <h2>Daily Motivation</h2>
+                <blockquote>
+                    <p id="quoteText">Click the button to get an inspirational quote.</p>
+                </blockquote>
+                <button id="quoteBtn" class="btn btn-primary glow-btn">
+                    <i class="fas fa-sync-alt"></i> Inspire Me
+                </button>
+                <div class="quote-category-select">
+                    <span>Category:</span>
+                    <select id="quoteCategory">
+                        <option value="random">Random</option>
+                        <option value="motivation">Motivation</option>
+                        <option value="success">Success</option>
+                        <option value="wisdom">Wisdom</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT SECTION ===== -->
+    <section id="contact" class="contact section">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <span class="section-number">08</span>
+                <h2 class="section-title">Contact Me</h2>
+                <div class="section-line"></div>
+            </div>
+            <p class="section-description reveal">
+                Have a question, collaboration idea, or just want to say hi? 
+                I'd love to hear from you!
+            </p>
+            <div class="contact-grid">
+                <div class="contact-info reveal-left">
+                    <div class="contact-card info-card" data-delay="0">
+                        <div class="contact-card-icon"><i class="fas fa-envelope"></i></div>
+                        <h3>Email</h3>
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=parishahid5@gmail.com" target="_blank">
+                            parishahid5@gmail.com
+                        </a>
+                    </div>
+                    <div class="contact-card info-card" data-delay="100">
+                        <div class="contact-card-icon"><i class="fab fa-whatsapp"></i></div>
+                        <h3>Phone</h3>
+                        <a href="https://wa.me/923239258647" target="_blank">+92 323 9258647</a>
+                    </div>
+                    <div class="contact-card info-card" data-delay="200">
+                        <div class="contact-card-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <h3>Location</h3>
+                        <p>Sialkot, Pakistan</p>
+                    </div>
+                    <div class="contact-card info-card" data-delay="300">
+                        <div class="contact-card-icon"><i class="fab fa-github"></i></div>
+                        <h3>GitHub</h3>
+                        <a href="https://github.com/Nameera19" target="_blank">github.com/Nameera19</a>
+                    </div>
+                    <div class="contact-card info-card" data-delay="400">
+                        <div class="contact-card-icon"><i class="fab fa-linkedin-in"></i></div>
+                        <h3>LinkedIn</h3>
+                        <a href="https://www.linkedin.com/in/nameera-s-a7049b356/" target="_blank">linkedin.com/in/nameera-s</a>
+                    </div>
+                </div>
+                <div class="contact-form-wrapper reveal-right">
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-group">
+                            <label for="formName">Your Name</label>
+                            <input type="text" id="formName" name="name" placeholder="John Doe" required>
+                            <span class="form-error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="formEmail">Your Email</label>
+                            <input type="email" id="formEmail" name="email" placeholder="john@example.com" required>
+                            <span class="form-error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="formSubject">Subject</label>
+                            <input type="text" id="formSubject" name="subject" placeholder="Project Collaboration" required>
+                            <span class="form-error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="formMessage">Message</label>
+                            <textarea id="formMessage" name="message" rows="6" placeholder="Tell me about your project or idea..." required></textarea>
+                            <span class="form-error"></span>
+                        </div>
+                        <button type="submit" id="formSubmit" class="btn btn-primary glow-btn form-submit">
+                            <i class="fas fa-paper-plane"></i>
+                            <span>Send Message</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
     <footer>
-
-    <h3>Nameera shahid</h3>
-
-    <p>Software Engineering Student</p>
-
-    <p>© 2026 All Rights Reserved.</p>
-
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <span class="logo-bracket">&lt;</span>
+                        <span class="logo-name">Nameera</span>
+                        <span class="logo-bracket">/&gt;</span>
+                    </a>
+                    <p>Software Engineering Student & AI Enthusiast</p>
+                    <div class="footer-social">
+                        <a href="https://github.com/Nameera19" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/nameera-s-a7049b356/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://wa.me/923239258647" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=parishahid5@gmail.com" target="_blank" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#skills">Skills</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#certificates">Certificates</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#quote">Motivation</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 <strong>Nameera Shahid</strong>. All Rights Reserved.</p>
+                <p class="footer-tagline">Built with <i class="fas fa-heart" style="color: #00E5FF;"></i> and lots of <i class="fas fa-coffee"></i></p>
+            </div>
+        </div>
     </footer>
-    </main>
+
+    <!-- ===== SERVICE WORKER REGISTRATION ===== -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                console.log('📡 Service Worker registration available for PWA support');
+            });
+        }
+    </script>
+
+    <!-- ===== TOAST NOTIFICATION CONTAINER ===== -->
+    <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- ===== BACKDROP FOR MOBILE MENU ===== -->
+    <div id="navBackdrop" class="nav-backdrop"></div>
+
+    <!-- ===== CURSOR LABEL INDICATOR ===== -->
+    <div id="cursor-label" class=""><span class="cursor-dot-indicator"></span> <span id="cursorStyleName">Arrow</span></div>
+
+    <!-- ===== SCROLL TO TOP ===== -->
+    <button id="scrollTopBtn" class="scroll-top" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
 
     <script src="script.js"></script>
 </body>

@@ -1,0 +1,54 @@
+; Auto-generated cursor scheme installer
+; Pack: Neon Dragon
+;
+; Right-click this file and choose Install, then select the scheme in
+; Mouse Properties -> Pointers and click Apply.
+
+[Version]
+signature="$CHICAGO$"
+
+[DefaultInstall]
+CopyFiles = Scheme.Cur
+AddReg    = Scheme.Reg
+
+[DestinationDirs]
+Scheme.Cur = 10,"%CUR_DIR%"
+
+[Scheme.Reg]
+HKCU,"Control Panel\Cursors\Schemes","%SCHEME_NAME%",0x00020000,"%10%\%CUR_DIR%\%pointer%,%10%\%CUR_DIR%\%help%,%10%\%CUR_DIR%\%work%,%10%\%CUR_DIR%\%busy%,%10%\%CUR_DIR%\%cross%,%10%\%CUR_DIR%\%text%,%10%\%CUR_DIR%\%pen%,%10%\%CUR_DIR%\%unavail%,%10%\%CUR_DIR%\%vert%,%10%\%CUR_DIR%\%horz%,%10%\%CUR_DIR%\%dgn1%,%10%\%CUR_DIR%\%dgn2%,%10%\%CUR_DIR%\%move%,%10%\%CUR_DIR%\%alternate%,%10%\%CUR_DIR%\%link%"
+
+[Scheme.Cur]
+"Arrow.cur"
+"Help.cur"
+"Working.cur"
+"Busy.cur"
+"Precision.cur"
+"Text.cur"
+"Handwriting.cur"
+"Unavailable.cur"
+"Vertical.cur"
+"Horizontal.cur"
+"Diagonal1.cur"
+"Diagonal2.cur"
+"Move.cur"
+"Alternate.cur"
+"Link.cur"
+
+[Strings]
+CUR_DIR       = "Cursors\Neon Dragon"
+SCHEME_NAME   = "Neon Dragon"
+pointer       = "Arrow.cur"
+help          = "Help.cur"
+work          = "Working.cur"
+busy          = "Busy.cur"
+cross         = "Precision.cur"
+text          = "Text.cur"
+pen           = "Handwriting.cur"
+unavail       = "Unavailable.cur"
+vert          = "Vertical.cur"
+horz          = "Horizontal.cur"
+dgn1          = "Diagonal1.cur"
+dgn2          = "Diagonal2.cur"
+move          = "Move.cur"
+alternate     = "Alternate.cur"
+link          = "Link.cur"
