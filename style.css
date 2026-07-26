@@ -124,6 +124,8 @@ body {
     height: 100vh;
     z-index: 0;
     pointer-events: none;
+    will-change: transform;
+    transform: translateZ(0);
 }
 #moistureCanvas {
     position: fixed;
@@ -134,6 +136,8 @@ body {
     z-index: 1;
     pointer-events: none;
     opacity: 0.3;
+    will-change: transform;
+    transform: translateZ(0);
 }
 
 /* =============================================================
@@ -150,6 +154,7 @@ body {
     transform: translate(-50%, -50%);
     transition: width 0.15s, height 0.15s, background 0.15s;
     box-shadow: 0 0 10px rgba(0,229,255,0.8), 0 0 20px rgba(0,229,255,0.4);
+    will-change: transform;
 }
 #cursor-ring {
     position: fixed;
@@ -162,6 +167,7 @@ body {
     transform: translate(-50%, -50%);
     transition: all 0.2s ease;
     box-shadow: 0 0 15px rgba(0,229,255,0.2);
+    will-change: transform;
 }
 #cursor-ring.hovering {
     width: 60px;

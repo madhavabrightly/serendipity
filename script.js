@@ -30,7 +30,7 @@
     })();
 
     // =========================================================
-    // 2. NAVBAR — SCROLL + ACTIVE LINK
+    // 2. NAVBAR — SCROLL + ACTIVE LINK (rAF-throttled)
     // =========================================================
     (function initNavbar() {
         const nav = document.getElementById('navbar');
@@ -39,27 +39,25 @@
         const hamburger = document.getElementById('hamburgerBtn');
         const navList = document.getElementById('navLinks');
 
-        // scroll shadow
+        let ticking = false;
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 80) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const y = window.scrollY;
+                    if (y > 80) nav.classList.add('scrolled');
+                    else nav.classList.remove('scrolled');
+
+                    let current = '';
+                    for (const s of sections) {
+                        if (y >= s.offsetTop - 120) current = s.id;
+                    }
+                    for (const link of navLinks) {
+                        link.classList.toggle('active-link', link.getAttribute('href') === '#' + current);
+                    }
+                    ticking = false;
+                });
+                ticking = true;
             }
-            // active link
-            let current = '';
-            sections.forEach(s => {
-                const top = s.offsetTop - 120;
-                if (window.scrollY >= top) {
-                    current = s.getAttribute('id');
-                }
-            });
-            navLinks.forEach(link => {
-                link.classList.remove('active-link');
-                if (link.getAttribute('href') === '#' + current) {
-                    link.classList.add('active-link');
-                }
-            });
         });
 
         // hamburger toggle
@@ -238,16 +236,22 @@
     })();
 
     // =========================================================
-    // 4. SCROLL PROGRESS BAR
+    // 4. SCROLL PROGRESS BAR (rAF-throttled)
     // =========================================================
     (function initScrollProgress() {
         const bar = document.getElementById('scrollProgress');
         if (!bar) return;
+        let ticking = false;
         window.addEventListener('scroll', () => {
-            const scrollTop = window.scrollY;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-            bar.style.width = progress + '%';
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const scrollTop = window.scrollY;
+                    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                    bar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+                    ticking = false;
+                });
+                ticking = true;
+            }
         });
     })();
 
@@ -650,297 +654,247 @@
     })();
 
     // =========================================================
-    // 15. PARTICLE SYSTEM (DOT SPREAD + FALLING)
+    // 15+16+21. MERGED CANVAS ENGINE (particles + moisture + dots)
+    //        Single rAF loop — no more competing animation frames
     // =========================================================
-    (function initParticleSystem() {
-        const canvas = document.getElementById('particleCanvas');
-        if (!canvas) return;
+    (function initMergedCanvasEngine() {
+        const pCanvas = document.getElementById('particleCanvas');
+        const mCanvas = document.getElementById('moistureCanvas');
+        if (!pCanvas || !mCanvas) return;
 
-        const ctx = canvas.getContext('2d');
-        let W, H;
-        let particles = [];
-        let mouse = { x: -1000, y: -1000 };
-        const PARTICLE_COUNT = 150;
-        const CONNECTION_DIST = 120;
+        const pCtx = pCanvas.getContext('2d');
+        const mCtx = mCanvas.getContext('2d');
 
-        function resize() {
-            W = canvas.width = window.innerWidth;
-            H = canvas.height = window.innerHeight;
-        }
+        let W = window.innerWidth, H = window.innerHeight;
+        const resize = () => {
+            W = pCanvas.width = mCanvas.width = window.innerWidth;
+            H = pCanvas.height = mCanvas.height = window.innerHeight;
+        };
         window.addEventListener('resize', resize);
         resize();
 
+        // ---------- PARTICLES ----------
+        const PARTICLE_COUNT = 80; // reduced from 150
+        const CONNECTION_DIST = 130;
+        const mouse = { x: -9999, y: -9999 };
+        let particles = [];
+
         class Particle {
-            constructor() {
-                this.reset();
-            }
+            constructor() { this.reset(); }
             reset() {
                 this.x = Math.random() * W;
                 this.y = Math.random() * H;
-                this.size = Math.random() * 3 + 1;
-                this.speedX = (Math.random() - 0.5) * 0.8;
-                this.speedY = (Math.random() - 0.5) * 0.8;
-                this.opacity = Math.random() * 0.5 + 0.2;
+                this.vx = (Math.random() - 0.5) * 0.6;
+                this.vy = (Math.random() - 0.5) * 0.6;
+                this.r = Math.random() * 2 + 1;
+                this.alpha = Math.random() * 0.4 + 0.2;
                 this.color = Math.random() > 0.5 ? '#00E5FF' : '#7c3aed';
             }
             update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-
-                // mouse interaction — repulsion
+                this.x += this.vx; this.y += this.vy;
                 const dx = this.x - mouse.x;
                 const dy = this.y - mouse.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 150) {
-                    const force = (150 - dist) / 150;
-                    this.x += (dx / dist) * force * 2;
-                    this.y += (dy / dist) * force * 2;
-                    this.opacity = Math.min(0.9, this.opacity + 0.1);
-                } else {
-                    this.opacity = Math.max(0.2, this.opacity - 0.005);
+                const d = dx * dx + dy * dy;
+                if (d < 22500) {
+                    const f = (150 - Math.sqrt(d)) / 150;
+                    const len = Math.sqrt(d) || 1;
+                    this.x += (dx / len) * f * 2;
+                    this.y += (dy / len) * f * 2;
                 }
-
-                // wrap around
                 if (this.x < -10) this.x = W + 10;
                 if (this.x > W + 10) this.x = -10;
                 if (this.y < -10) this.y = H + 10;
                 if (this.y > H + 10) this.y = -10;
             }
             draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.globalAlpha = this.opacity;
-                ctx.fill();
-                ctx.globalAlpha = 1;
-
-                // glow
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.globalAlpha = this.opacity * 0.1;
-                ctx.fill();
-                ctx.globalAlpha = 1;
-            }
-        }
-
-        for (let i = 0; i < PARTICLE_COUNT; i++) {
-            particles.push(new Particle());
-        }
-
-        document.addEventListener('mousemove', e => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-        });
-        document.addEventListener('mouseleave', () => {
-            mouse.x = -1000;
-            mouse.y = -1000;
-        });
-
-        function drawConnections() {
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < CONNECTION_DIST) {
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = particles[i].color;
-                        ctx.globalAlpha = (1 - dist / CONNECTION_DIST) * 0.15;
-                        ctx.lineWidth = 1;
-                        ctx.stroke();
-                        ctx.globalAlpha = 1;
-                    }
+                pCtx.beginPath();
+                pCtx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                pCtx.fillStyle = this.color;
+                pCtx.globalAlpha = this.alpha;
+                pCtx.fill();
+                if (this.r > 2) {
+                    pCtx.beginPath();
+                    pCtx.arc(this.x, this.y, this.r * 3, 0, Math.PI * 2);
+                    pCtx.fillStyle = this.color;
+                    pCtx.globalAlpha = this.alpha * 0.08;
+                    pCtx.fill();
                 }
+                pCtx.globalAlpha = 1;
             }
         }
 
-        function createDotSpread() {
-            // spawn burst of dots that spread outward
-            const burstCount = 3;
-            for (let i = 0; i < burstCount; i++) {
+        for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
+
+        // throttled mouse for particles
+        let mouseTick = false;
+        document.addEventListener('mousemove', e => {
+            if (!mouseTick) {
+                requestAnimationFrame(() => {
+                    mouse.x = e.clientX; mouse.y = e.clientY;
+                    mouseTick = false;
+                });
+                mouseTick = true;
+            }
+        });
+        document.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+
+        // dot spread burst
+        let burstFrames = 0;
+        function doBurst() {
+            for (let i = 0; i < 3; i++) {
+                if (particles.length >= PARTICLE_COUNT + 10) break;
                 const p = new Particle();
-                p.x = Math.random() * W;
-                p.y = Math.random() * H;
-                p.speedX = (Math.random() - 0.5) * 4;
-                p.speedY = (Math.random() - 0.5) * 4;
-                p.size = Math.random() * 2 + 1;
-                p.opacity = 0.7;
+                p.vx = (Math.random() - 0.5) * 5;
+                p.vy = (Math.random() - 0.5) * 5;
+                p.r = Math.random() * 2 + 1;
+                p.alpha = 0.7;
                 particles.push(p);
             }
-            // remove excess
-            if (particles.length > PARTICLE_COUNT + 20) {
-                particles.splice(PARTICLE_COUNT);
-            }
+            if (particles.length > PARTICLE_COUNT + 10) particles.splice(PARTICLE_COUNT);
         }
 
-        // periodic dot spread bursts
-        setInterval(createDotSpread, 3000);
-
-        function animate() {
-            ctx.clearRect(0, 0, W, H);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            drawConnections();
-            requestAnimationFrame(animate);
-        }
-        animate();
-    })();
-
-    // =========================================================
-    // 16. MOISTURE / FLUID SIMULATION
-    // =========================================================
-    (function initMoistureEffect() {
-        const canvas = document.getElementById('moistureCanvas');
-        if (!canvas) return;
-
-        const ctx = canvas.getContext('2d');
-        let W, H;
-        let drops = [];
-        let ripples = [];
-        const MAX_DROPS = 30;
-        const MAX_RIPPLES = 12;
-
-        function resize() {
-            W = canvas.width = window.innerWidth;
-            H = canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resize);
-        resize();
+        // ---------- MOISTURE ----------
+        const MAX_DROPS = 20; // reduced from 30
+        const MAX_RIPPLES = 8;
+        let drops = [], ripples = [];
 
         class Drop {
-            constructor() {
-                this.reset();
-            }
+            constructor() { this.reset(); }
             reset() {
                 this.x = Math.random() * W;
                 this.y = -20 - Math.random() * 100;
-                this.size = Math.random() * 6 + 2;
-                this.speedY = Math.random() * 2 + 1.5;
-                this.speedX = (Math.random() - 0.5) * 0.3;
-                this.opacity = Math.random() * 0.3 + 0.1;
-                this.tailLength = Math.floor(Math.random() * 8) + 3;
+                this.r = Math.random() * 5 + 2;
+                this.vy = Math.random() * 1.5 + 1;
+                this.vx = (Math.random() - 0.5) * 0.2;
+                this.alpha = Math.random() * 0.25 + 0.08;
                 this.tail = [];
-                this.color = Math.random() > 0.5 ? '0, 229, 255' : '124, 58, 237';
+                this.tailLen = 4 + (Math.random() * 4 | 0);
+                this.color = Math.random() > 0.5 ? '0,229,255' : '124,58,237';
             }
             update() {
-                // store tail
                 this.tail.unshift({ x: this.x, y: this.y });
-                if (this.tail.length > this.tailLength) this.tail.pop();
-
-                this.x += this.speedX;
-                this.y += this.speedY;
-                this.speedY += 0.05; // gravity
-
+                if (this.tail.length > this.tailLen) this.tail.pop();
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vy += 0.04;
                 if (this.y > H + 20) {
-                    // create ripple
-                    ripples.push(new Ripple(this.x, H, this.size * 2, this.color));
+                    ripples.push(new Ripple(this.x, H, this.r * 2, this.color));
                     this.reset();
                 }
             }
             draw() {
-                // draw tail
                 for (let i = 0; i < this.tail.length; i++) {
-                    const alpha = (1 - i / this.tail.length) * this.opacity * 0.4;
-                    ctx.beginPath();
-                    ctx.arc(this.tail[i].x, this.tail[i].y, this.size * (1 - i / this.tail.length) * 0.6, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(${this.color}, ${alpha})`;
-                    ctx.fill();
+                    const a = (1 - i / this.tailLen) * this.alpha * 0.35;
+                    mCtx.beginPath();
+                    mCtx.arc(this.tail[i].x, this.tail[i].y, this.r * (1 - i / this.tailLen) * 0.5, 0, Math.PI * 2);
+                    mCtx.fillStyle = `rgba(${this.color},${a})`;
+                    mCtx.fill();
                 }
-                // main drop
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(${this.color}, ${this.opacity})`;
-                ctx.fill();
-                // glow
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size * 2.5, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(${this.color}, ${this.opacity * 0.08})`;
-                ctx.fill();
+                mCtx.beginPath();
+                mCtx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                mCtx.fillStyle = `rgba(${this.color},${this.alpha})`;
+                mCtx.fill();
             }
         }
 
         class Ripple {
-            constructor(x, y, size, color) {
-                this.x = x;
-                this.y = y;
-                this.maxRadius = Math.min(size * 10, 80);
-                this.radius = 2;
-                this.opacity = 0.4;
-                this.color = color;
-                this.speed = 1;
+            constructor(x, y, sz, clr) {
+                this.x = x; this.y = y;
+                this.maxR = Math.min(sz * 8, 60);
+                this.r = 2; this.alpha = 0.35; this.color = clr;
             }
-            update() {
-                this.radius += this.speed;
-                this.opacity -= 0.01;
-                this.speed *= 0.97;
-            }
+            update() { this.r += 1.2; this.alpha -= 0.012; }
             draw() {
-                if (this.opacity <= 0) return;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.strokeStyle = `rgba(${this.color}, ${this.opacity})`;
-                ctx.lineWidth = 1.5;
-                ctx.stroke();
-                // inner ring
-                if (this.radius > 10) {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.radius * 0.6, 0, Math.PI * 2);
-                    ctx.strokeStyle = `rgba(${this.color}, ${this.opacity * 0.5})`;
-                    ctx.lineWidth = 0.8;
-                    ctx.stroke();
+                if (this.alpha <= 0) return;
+                mCtx.beginPath();
+                mCtx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                mCtx.strokeStyle = `rgba(${this.color},${this.alpha})`;
+                mCtx.lineWidth = 1.2;
+                mCtx.stroke();
+                if (this.r > 8) {
+                    mCtx.beginPath();
+                    mCtx.arc(this.x, this.y, this.r * 0.5, 0, Math.PI * 2);
+                    mCtx.strokeStyle = `rgba(${this.color},${this.alpha * 0.4})`;
+                    mCtx.lineWidth = 0.6;
+                    mCtx.stroke();
                 }
             }
-            isDead() {
-                return this.opacity <= 0 || this.radius > this.maxRadius;
-            }
+            isDead() { return this.alpha <= 0 || this.r > this.maxR; }
         }
 
-        // initial drops
-        for (let i = 0; i < 15; i++) {
-            setTimeout(() => {
-                const d = new Drop();
-                d.y = -20 - Math.random() * 200;
-                drops.push(d);
-            }, i * 200);
+        for (let i = 0; i < 8; i++) {
+            const d = new Drop();
+            d.y = -20 - Math.random() * 300;
+            drops.push(d);
         }
 
-        // spawn more drops periodically
-        setInterval(() => {
-            if (drops.length < MAX_DROPS) {
-                drops.push(new Drop());
-            }
-        }, 2000);
-
-        // mouse ripples
-        canvas.addEventListener('mousemove', e => {
-            if (ripples.length < MAX_RIPPLES) {
-                const rand = Math.random();
-                if (rand > 0.92) {
-                    const color = Math.random() > 0.5 ? '0, 229, 255' : '124, 58, 237';
-                    ripples.push(new Ripple(e.clientX, e.clientY, 5, color));
-                }
-            }
+        // mouse ripples (throttled)
+        let rippleCount = 0;
+        mCanvas.addEventListener('mousemove', () => {
+            if (ripples.length >= MAX_RIPPLES) return;
+            rippleCount++;
+            if (rippleCount % 8 !== 0) return;
+            ripples.push(new Ripple(mouse.x, mouse.y, 5,
+                Math.random() > 0.5 ? '0,229,255' : '124,58,237'));
         });
 
-        function animate() {
-            ctx.clearRect(0, 0, W, H);
-            drops.forEach(d => {
-                d.update();
-                d.draw();
-            });
-            ripples.forEach(r => {
-                r.update();
-                r.draw();
-            });
+        // ---------- SINGLE rAF LOOP ----------
+        let frame = 0;
+        function loop() {
+            frame++;
+
+            // particles
+            pCtx.clearRect(0, 0, W, H);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+
+            // connections every 2nd frame
+            if (frame % 2 === 0) {
+                const len = particles.length;
+                for (let i = 0; i < len; i++) {
+                    const pi = particles[i];
+                    for (let j = i + 1; j < len; j++) {
+                        const pj = particles[j];
+                        const dx = pi.x - pj.x;
+                        const dy = pi.y - pj.y;
+                        const d = dx * dx + dy * dy;
+                        if (d < CONNECTION_DIST * CONNECTION_DIST) {
+                            const dist = Math.sqrt(d);
+                            pCtx.beginPath();
+                            pCtx.moveTo(pi.x, pi.y);
+                            pCtx.lineTo(pj.x, pj.y);
+                            pCtx.strokeStyle = pi.color;
+                            pCtx.globalAlpha = (1 - dist / CONNECTION_DIST) * 0.12;
+                            pCtx.lineWidth = 0.8;
+                            pCtx.stroke();
+                            pCtx.globalAlpha = 1;
+                        }
+                    }
+                }
+            }
+
+            // burst every ~3s
+            burstFrames++;
+            if (burstFrames > 180) { doBurst(); burstFrames = 0; }
+
+            // moisture
+            mCtx.clearRect(0, 0, W, H);
+            for (let i = 0; i < drops.length; i++) {
+                drops[i].update();
+                drops[i].draw();
+            }
+            for (let i = 0; i < ripples.length; i++) {
+                ripples[i].update();
+                ripples[i].draw();
+            }
             ripples = ripples.filter(r => !r.isDead());
-            requestAnimationFrame(animate);
+            if (drops.length < MAX_DROPS && frame % 120 === 0) drops.push(new Drop());
+
+            requestAnimationFrame(loop);
         }
-        animate();
+        loop();
     })();
 
     // =========================================================
@@ -1022,52 +976,7 @@
         sections.forEach(s => observer.observe(s));
     })();
 
-    // =========================================================
-    // 21. FLOATING DOT SPREAD (CSS-based dot spreader)
-    // =========================================================
-    (function initCSSDotSpread() {
-        const dotContainer = document.createElement('div');
-        dotContainer.className = 'dot-container';
-        dotContainer.style.cssText = `
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 0; overflow: hidden;
-        `;
-        document.body.prepend(dotContainer);
-
-        const colors = ['#00E5FF', '#7c3aed', '#f59e0b', '#22d3ee', '#a78bfa'];
-
-        function createDotBurst() {
-            const count = 8;
-            for (let i = 0; i < count; i++) {
-                const dot = document.createElement('div');
-                const x = (Math.random() - 0.5) * 600;
-                const y = (Math.random() - 0.5) * 600;
-                const duration = 3 + Math.random() * 4;
-                const delay = Math.random() * 2;
-                const size = 2 + Math.random() * 4;
-                dot.style.cssText = `
-                    position: absolute;
-                    width: ${size}px; height: ${size}px;
-                    background: ${colors[Math.floor(Math.random() * colors.length)]};
-                    border-radius: 50%;
-                    opacity: 0;
-                    top: ${20 + Math.random() * 60}%;
-                    left: ${20 + Math.random() * 60}%;
-                    --x: ${x}px; --y: ${y}px;
-                    --duration: ${duration}s; --delay: ${delay}s;
-                    animation: dotSpread ${duration}s ease-out forwards;
-                    animation-delay: ${delay}s;
-                `;
-                dotContainer.appendChild(dot);
-                // remove after animation
-                setTimeout(() => dot.remove(), (duration + delay) * 1000 + 100);
-            }
-        }
-
-        // initial burst
-        setTimeout(createDotBurst, 500);
-        setInterval(createDotBurst, 4000);
-    })();
+    // (merged into canvas engine above — CSS dot spreader removed for performance)
 
     // =========================================================
     // 22. GRAIN / NOISE OVERLAY
