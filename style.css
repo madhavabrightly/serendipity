@@ -240,18 +240,22 @@ box-shadow:0 0 25px rgba(0,229,255,.4);
     text-transform:uppercase;
 }
 
-.projects-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+.projects-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(360px,1fr));
+    gap:30px;
+    justify-items:center;
 }
 
-.project-card {
-    background: #1E293B;
-    padding: 30px;
-    border-radius: 15px;
-    transition: 0.3s;
-    border-top: 5px solid #00E5FF;
+.project-card{
+    width:100%;
+    max-width:360px;
+    background:#1E293B;
+    border-radius:15px;
+    padding:30px;
+    text-align:center;
+    border-top:5px solid #00E5FF;
+    transition:.3s;
 }
 
 .project-card:hover{
